@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your-user/your-repo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'echo Building the project...'
+                // Add your build commands here (e.g., Maven, npm)
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'echo Running tests...'
+                // Add test commands here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo Deploying application...'
+                // Add deployment logic (e.g., SCP to server, AWS CLI)
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs for details.'
+        }
+    }
+}
